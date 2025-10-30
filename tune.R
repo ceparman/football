@@ -68,7 +68,7 @@ conf_mat
  
  model_train$home_beat_spread <- as.factor(model_train$home_beat_spread )
  
- 
+ model_test$home_beat_spread <- as.factor(model_test$home_beat_spread )
  
  
  xgb_spec <-boost_tree(
@@ -123,6 +123,15 @@ conf_mat
  
  final_xgb <- finalize_workflow(xgb_wf, best_auc)
  final_xgb
+ 
+ 
+ final_rs <- last_fit(final_xgb, model_split,
+                      metrics = metric_set(accuracy, roc_auc, sens,spec))
+ final_rs %>%
+   collect_metrics()
+ 
+ 
+ 
  
  
  library(vip)

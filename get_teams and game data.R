@@ -5,7 +5,7 @@ library(dplyr)
 library(slider)
 
 
-seasons <- 2010:2017
+seasons <- 2010:2025
 
 for(s in seasons) {
   

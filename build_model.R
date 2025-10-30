@@ -17,6 +17,7 @@ full_data <- data.frame()
 
 for(file in data_files) {
   
+print(file)  
 year_data <- readRDS(file)
 
 full_data <- rbind(full_data,year_data )
@@ -26,9 +27,9 @@ full_data <- rbind(full_data,year_data )
 
 metric = "home_beat_spread"
 
-#only use up too the last year 
+#only use up to the last year 
 
-model_data <- full_data |>    filter( season < max(season)) |> select(-c(game_result,season,game_id,home_team,week,away_team)) 
+model_data <- full_data |>  filter( season < max(season)) |> select(-c(game_result,season,game_id,home_team,week,away_team)) 
 
 val_data <- full_data |>  filter( season == max(season)) |> select(-c(game_result,season,game_id,home_team,week,away_team)) 
 
@@ -88,6 +89,7 @@ xgb_test_dv_fac3<- as.factor(ifelse(xgb_test_dv == 1, "YES", "NO"))
 # Print Confusion matrix, & F1 score
 cm3 <-confusionMatrix(as.factor(y_pred_num3), as.factor(xgb_test_dv_fac3), positive = "YES")
 cm3
+
 
 ## SHAP analysis
 
